@@ -64,4 +64,5 @@ int file_check(FILE *file, FILE *filew) {
         printf("Error opening the output file\n");
         return 1;
     }
+    return 0;
 }

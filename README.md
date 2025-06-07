@@ -22,5 +22,5 @@ gcc-14 sequencial.c utils.c -o sequencial
 gcc-14 paralelo.c utils.c -o paralelo
 
 # Usage: ./paralelo inputFile outputFile numberOfThreads
-./sequencial gg03.jss output.txt 3
+./paralelo gg03.jss output.txt 3
 ```

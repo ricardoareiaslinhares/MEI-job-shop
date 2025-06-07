@@ -1,9 +1,9 @@
 # Job Shop
 
 ## Our aproach to the problem
-We began by exploring the most straighforward solutions, we developed a greedy approach ``sequencial_greedy.c``. However, we realized that this approach wouldn’t benefit from parallelism due to its linear nature.
+We began by exploring the most direct solutions, we developed a greedy approach ``sequencial_greedy.c``. However, we realized that this approach wouldn’t easly benefit from parallelism due to its linear nature.
 
-We developed our final approach utilizing the Branch and Bound algorithm, which explores all possible solutions and finds the most optimal ``sequencial_bb.c``. Using this as base we developed a paralled aproach ``paralelo.c``
+We developed another approach utilizing the Branch and Bound algorithm, which explores all possible solutions and finds the most optimal ``sequencial_bb.c``, this takes a long time even for small job schedules. However we can see instant benifits when usig the same algorithm in parallel ``paralelo.c``
 
 ## Compile and run the programs
 

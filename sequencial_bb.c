@@ -10,17 +10,16 @@ int min_makespan = INT_MAX;
 int best_start_time[MAX][MAX];
 
 void branch_bound(
-    int r, // number of rows (Jobs)
-    int c, // number of columns (Machines)
-    int depth, // matrix size r*x
-    int job_free[MAX], // when can job r start
+    int r,                 // number of rows (Jobs)
+    int c,                 // number of columns (Machines)
+    int depth,             // matrix size r*x
+    int job_free[MAX],     // when can job r start
     int machine_free[MAX], // when is machine c free
-    int job_op[MAX], // how many ops for job r
+    int job_op[MAX],       // how many ops for job r
     int current_makespan,
     int machines[MAX][MAX],
     int times[MAX][MAX],
-    int start_time[MAX][MAX]
-)
+    int start_time[MAX][MAX])
 {
     // Backtracks / exit condition
     if (depth == r * c)
@@ -71,8 +70,12 @@ void branch_bound(
         memcpy(new_machine_free, machine_free, sizeof(int) * MAX);
         memcpy(new_job_op, job_op, sizeof(int) * MAX);
         for (int i = 0; i < MAX; i++)
-{            for (int j = 0; j < MAX; j++)
-          {      new_start_time[i][j] = start_time[i][j];}}
+        {
+            for (int j = 0; j < MAX; j++)
+            {
+                new_start_time[i][j] = start_time[i][j];
+            }
+        }
 
         // Update variables for the next recursion
         new_job_free[job] = end;
@@ -129,7 +132,8 @@ int main(int argc, char *argv[])
         }
     }
 
-    double start = getClock();
+    struct timespec start_clock, end_clock;
+    clock_gettime(CLOCK_MONOTONIC, &start_clock);
     branch_bound(
         r,
         c,
@@ -143,8 +147,11 @@ int main(int argc, char *argv[])
         start_time
 
     );
-    double end = getClock();
-    printf("Execution time: %.6f\n", end - start);
+    clock_gettime(CLOCK_MONOTONIC, &end_clock);
+    double elapsed = (end_clock.tv_sec - start_clock.tv_sec) +
+                     (end_clock.tv_nsec - start_clock.tv_nsec) / 1e9;
+
+    printf("Execution time: %.6f seconds\n", elapsed);
     printf("Best makespan: %d\n", min_makespan);
     write_to_file(filew, min_makespan, best_start_time, input.r, input.c);
     fclose(filew);

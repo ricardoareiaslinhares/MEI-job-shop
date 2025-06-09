@@ -3,5 +3,7 @@ other_stuff/
 .vscode/
 outputP.txt
 outputS.txt
-paralelo4
+paralelo
 sequencial
+
+*.docx

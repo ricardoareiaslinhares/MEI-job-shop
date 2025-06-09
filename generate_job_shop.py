@@ -9,7 +9,7 @@ parser.add_argument("output_file", help="Path to save the generated instance")
 args = parser.parse_args()
 
 generator = GeneralInstanceGenerator(
-    duration_range=(1, 9), seed=42, num_jobs=4, num_machines=4
+    duration_range=(1, 9), seed=42, num_jobs=3, num_machines=8
 )
 
 random_instance = generator.generate()

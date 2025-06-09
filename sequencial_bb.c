@@ -27,6 +27,7 @@ void branch_bound(
         if (current_makespan < min_makespan)
         {
             min_makespan = current_makespan;
+                    printf("Min makespan %d\n", min_makespan);
             for (int i = 0; i < r; i++)
             {
                 for (int j = 0; j < c; j++)

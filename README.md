@@ -1,19 +1,19 @@
-# Job Shop
+# Job Shop Scheduling
 
-## Our aproach to the problem
-We began by exploring the most direct solutions, we developed a greedy approach ``sequencial_greedy.c``. However, we realized that this approach wouldn’t easly benefit from parallelism due to its linear nature.
+## Branch and Bound implementation
 
-We developed another approach utilizing the Branch and Bound algorithm, which explores all possible solutions and finds the most optimal ``sequencial_bb.c``, this takes a long time even for small job schedules. However we can see instant benifits when usig the same algorithm in parallel ``paralelo.c``
+The file ``sequencial_bb.c`` was the first implementation of this algorithm. When we started on the parallel version and realized that we had to partition the problem into individual work units, we also implemented the same partitioning for the sequential code. Hence, for purposes of comparison with the parallel code, consider the ``sequencial_bb2.c`` file.
+
 
 ## Compile and run the programs
 
 **Sequencial**
 ```bash
 # On Mac
-gcc-14 sequencial.c utils.c -o sequencial
+gcc-14 sequencial_bb2.c utils.c -o sequencial
 
-# Usage: ./sequencial inputFile outputFile
-./sequencial gg03.jss output.txt
+# Usage: ./sequencial_bb2 inputFile outputFile
+./sequencial_bb2 gg03.jss outputS.txt
 ```
 
 **Paralelo**
@@ -22,5 +22,5 @@ gcc-14 sequencial.c utils.c -o sequencial
 gcc-14 paralelo.c utils.c -o paralelo
 
 # Usage: ./paralelo inputFile outputFile numberOfThreads
-./paralelo gg03.jss output.txt 3
+./paralelo gg03.jss outputP.txt 8
 ```

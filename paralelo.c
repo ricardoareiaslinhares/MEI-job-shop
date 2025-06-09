@@ -67,7 +67,7 @@ void travel_and_generate_work(
     const State *current_state,
     int stop_depth,
     State *units, // pointer to an array of States to explore
-    int *count // to help populate those states
+    int *count // to index on populating those states
 ) {
     if (current_state->depth == stop_depth) {
         // Save current state
@@ -96,8 +96,6 @@ void travel_and_generate_work(
 
         travel_and_generate_work(input, &new_state, stop_depth, units, count);
     }
-
-
 }
 typedef struct {
     const InputData *input;
@@ -110,7 +108,7 @@ typedef struct {
 void* thread_fn(void *arg) {
     ThreadArgs *args = (ThreadArgs*)arg;
     for (int i = args->start; i < args->end; ++i) {
-        State local = args->state[i]; // make a local copy
+        State local = args->state[i]; // makes a local copy
         branch_bound(args->input, &local, args->stop_depth);
     }
     free(args);
@@ -147,15 +145,16 @@ int main(int argc, char *argv[]) {
 
     State *work_units_state = malloc(MAX_WORK_UNITS * sizeof(State));
     int current_unit_index = 0;
-    travel_and_generate_work(&input, &initial_state, STARTING_BRANCH, work_units_state, &current_unit_index );
+
 
     int num_threads = atoi(argv[3]);
-    if (num_threads < 1) num_threads = 1;
-
+    //if (num_threads < 1) num_threads = 1;
+    
     // This caps threads to the number of threads actual needed
     //if (num_threads > current_unit_index) num_threads = current_unit_index; 
 
     pthread_t *threads = malloc(num_threads * sizeof(pthread_t));
+    travel_and_generate_work(&input, &initial_state, STARTING_BRANCH, work_units_state, &current_unit_index );
 
     struct timespec start_clock, end_clock;
     clock_gettime(CLOCK_MONOTONIC, &start_clock);
@@ -170,8 +169,9 @@ int main(int argc, char *argv[]) {
         pthread_create(&threads[t], NULL, thread_fn, args);
     }
 
-    for (int t = 0; t < num_threads; ++t)
-    pthread_join(threads[t], NULL);
+    for (int t = 0; t < num_threads; ++t) {
+        pthread_join(threads[t], NULL);
+    }
 
     clock_gettime(CLOCK_MONOTONIC, &end_clock);
     double elapsed = (end_clock.tv_sec - start_clock.tv_sec) +

@@ -8,7 +8,7 @@
 
 int min_makespan = INT_MAX;
 int best_start_time[MAX][MAX];
-#define STARTING_BRANCH 2 // Treads receives work from this branch level
+#define STARTING_BRANCH 2 // Treads receives work starting from this branch level
 #define MAX_WORK_UNITS 4096 
 
 typedef struct {
@@ -62,7 +62,7 @@ void travel_and_generate_work(
     const State *current_state,
     int stop_depth,
     State *units, // pointer to an array of States to explore
-    int *count // to help populate those states
+    int *count // to index on populating those states
 ) {
     if (current_state->depth == stop_depth) {
         // Save current state

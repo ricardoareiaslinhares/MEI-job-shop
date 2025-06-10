@@ -11,7 +11,7 @@
 pthread_mutex_t lock;
 int min_makespan = INT_MAX;
 int best_start_time[MAX][MAX];
-#define STARTING_BRANCH 2 // Treads receives work from this branch level
+#define STARTING_BRANCH 2 // Treads receives work starting from this branch level
 #define MAX_WORK_UNITS 4096 
 
 typedef struct {

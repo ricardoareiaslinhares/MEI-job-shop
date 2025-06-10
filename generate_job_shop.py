@@ -1,4 +1,4 @@
-# This code was used to generate a 5x5 matrix
+# This code was used to generate JS matrixes
 # Install library from https://github.com/Pabloo22/job_shop_lib
 
 import argparse
